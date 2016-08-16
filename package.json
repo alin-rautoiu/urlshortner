@@ -1,0 +1,24 @@
+{
+  "name": "urlshortner",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alin-rautoiu/urlshortner.git"
+  },
+  "author": "alin rautoiu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alin-rautoiu/urlshortner/issues"
+  },
+  "homepage": "https://github.com/alin-rautoiu/urlshortner#readme",
+  "dependencies": {
+    "mongodb": "^2.2.6",
+    "mongoose": "^4.5.9",
+    "shorthash": "0.0.2"
+  }
+}
