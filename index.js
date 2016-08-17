@@ -4,8 +4,9 @@ var sh = require('shorthash');
 var app = express();
 var ShortUrl = require("./model").ShortUrl;
 
-function writeUrl(req, res) {
-    var longUrl = req.params.url;
+function writeUrl(req, res) {    
+    var protocol = arguments[2];
+    var longUrl = protocol != null ? protocol + '' + req.params.url : req.params.url;
     var shortendedUrl = sh.unique(longUrl);
 
     var short = new ShortUrl({
@@ -36,7 +37,13 @@ function writeUrl(req, res) {
         });
 }
 
-app.get('/new/:url', writeUrl);
+app.get('/new/https://:url*', function(req, res) {
+    writeUrl(req, res, 'https://');
+});
+app.get('/new/http://:url*', function(req, res) {
+    writeUrl(req, res, 'http://');
+});
+app.get('/new/:url*', writeUrl);
 
 
 app.get('/:url', function(req, res) {
