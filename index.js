@@ -4,7 +4,7 @@ var sh = require('shorthash');
 var app = express();
 var ShortUrl = require("./model").ShortUrl;
 
-app.get('/new/:url', function(req, res) {
+function writeUrl(req, res) {
     var longUrl = req.params.url;
     var shortendedUrl = sh.unique(longUrl);
 
@@ -34,7 +34,10 @@ app.get('/new/:url', function(req, res) {
             "original_url": longUrl,
             "short_url": shortendedUrl
         });
-});
+}
+
+app.get('/new/:url', writeUrl);
+
 
 app.get('/:url', function(req, res) {
     var shortendedUrl = req.params.url;
@@ -47,10 +50,7 @@ app.get('/:url', function(req, res) {
             }
 
             if(shortUrl !== null) {
-                res.writeHead(301,
-                {Location: shortUrl.url}
-                );
-                res.end();
+                res.redirect(shortUrl.url);
             }
         });
 });
